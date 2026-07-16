@@ -1,6 +1,6 @@
 from socket import socket, AddressFamily, SocketKind
 
-from config import config
+from .config import config
 
 
 class NetworkBackend:
@@ -9,3 +9,7 @@ class NetworkBackend:
 
     def send(self, message: str) -> None:
         self.socket.sendto(message.encode("utf8"), ("127.0.0.1", config.port))
+
+    def wait_message(self):
+        while True:
+            yield self.socket.recv(1024).decode("utf8")
