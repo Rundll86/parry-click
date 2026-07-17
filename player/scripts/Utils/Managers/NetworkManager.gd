@@ -25,7 +25,7 @@ func _process(_delta: float) -> void:
 				responseWith("pong")
 			"play":
 				print("正在播放")
-				EffectPlayer.play("PerfectParry", Vector2(args[0], args[1]), args[2], args[3])
+				EffectPlayer.play("PerfectParry", Vector2(args[0], args[1]), args[2], args[3]).shot()
 
 func responseWith(data: String):
 	peer.set_dest_address(peer.get_packet_ip(), peer.get_packet_port())
