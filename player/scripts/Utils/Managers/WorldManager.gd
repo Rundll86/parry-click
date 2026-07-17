@@ -10,8 +10,6 @@ static var runnedTime: float = 0.0
 func _ready():
 	rootNode = self
 	sceneTree = get_tree()
-	DisplayServer.window_set_mouse_passthrough([])
-	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_ALWAYS_ON_TOP, true, 0)
 func _physics_process(delta):
 	runnedTime += delta
 

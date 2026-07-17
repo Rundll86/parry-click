@@ -63,5 +63,6 @@ static func play(namx: StringName, positiox: Vector2 = Vector2.ZERO, rotatiox: f
 	instance.position = positiox
 	instance.rotation = rotatiox
 	instance.scale = scalx
-	(overrideRoot if is_instance_valid(overrideRoot) else WorldManager.rootNode).add_child(instance)
+	print(WorldManager.rootNode, instance)
+	(overrideRoot if is_instance_valid(overrideRoot) else WorldManager.rootNode).add_child.call_deferred(instance)
 	return instance
