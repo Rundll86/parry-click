@@ -1,0 +1,70 @@
+extends Node2D
+class_name EffectPlayer
+
+@export var autoShot: bool = false
+@export var oneShot: bool = false
+@export var autoplayAnimation: StringName = ""
+@export var autoplayFrames: StringName = ""
+@export var autoplaySound: StringName = ""
+
+@onready var sounds: SoundStage = $%sounds
+@onready var animator: AnimationPlayer = $%animator
+@onready var shaderStage: ShaderStage = $%shader
+@onready var frameSprite: AnimatedSprite2D = $%frames
+@onready var texture: Sprite2D = $%texture
+@onready var particles: GPUParticles2D = $%particles
+
+func _ready():
+	particles.one_shot = oneShot
+	particles.emitting = false
+	hide()
+	spawn()
+	if autoShot:
+		shot()
+func _physics_process(delta):
+	ai(delta)
+
+func spawn():
+	pass
+func ai(_delta: float):
+	pass
+
+func shake(millseconds: float, intensity: float):
+	CameraManager.shake(millseconds, intensity)
+func timeScale(value: float, millseconds: float):
+	Engine.time_scale *= value
+	await TimeUtil.millseconds(millseconds)
+	Engine.time_scale /= value
+func extremePlayer(millseconds: float):
+	await TimeUtil.millseconds(millseconds)
+	CameraManager.extremeStop()
+func shot():
+	show()
+	particles.emitting = true
+	if autoplayAnimation:
+		animator.play(autoplayAnimation)
+	if autoplayFrames:
+		frameSprite.play(autoplayFrames)
+	if autoplaySound:
+		sounds.play(autoplaySound)
+	
+	if oneShot:
+		if frameSprite.is_playing():
+			if !frameSprite.sprite_frames.get_animation_loop(frameSprite.animation):
+				await frameSprite.animation_finished
+				frameSprite.hide()
+		if animator.is_playing():
+			await animator.animation_finished
+		if sounds.isPlaying():
+			await sounds.soundStopped
+		if particles.emitting:
+			await particles.finished
+		queue_free()
+
+static func play(namx: StringName, positiox: Vector2 = Vector2.ZERO, rotatiox: float = 0, scalx: Vector2 = Vector2.ONE, overrideRoot: Node = null):
+	var instance = load("res://components/Effects/%s.tscn" % namx).instantiate() as EffectPlayer
+	instance.position = positiox
+	instance.rotation = rotatiox
+	instance.scale = scalx
+	(overrideRoot if is_instance_valid(overrideRoot) else WorldManager.rootNode).add_child(instance)
+	return instance
