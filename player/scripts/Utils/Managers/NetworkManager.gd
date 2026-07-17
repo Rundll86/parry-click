@@ -19,10 +19,12 @@ func _process(_delta: float) -> void:
 			var value = args[i]
 			if value.is_valid_float():
 				args[i] = value.to_float()
+		print("已解析命令", command, args)
 		match command:
 			"ping":
 				responseWith("pong")
 			"play":
+				print("正在播放")
 				EffectPlayer.play("PerfectParry", Vector2(args[0], args[1]), args[2], args[3])
 
 func responseWith(data: String):

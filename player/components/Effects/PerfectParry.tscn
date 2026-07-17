@@ -156,6 +156,7 @@ color_initial_ramp = SubResource("GradientTexture1D_kmh8y")
 alpha_curve = SubResource("CurveTexture_ybuw1")
 
 [node name="EffectBase" unique_id=685466674 instance=ExtResource("1_7h6aa")]
+autoShot = true
 oneShot = true
 autoplayAnimation = &"spawn"
 autoplaySound = &"spawn"

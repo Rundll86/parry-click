@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://dsj6rgpmtljc1" path="res://scripts/Utils/Managers/WorldManager.gd" id="1_sbdvw"]
 [ext_resource type="Script" uid="uid://c3o1ydfojauhd" path="res://scripts/Utils/Managers/NetworkManager.gd" id="2_6km7c"]
-[ext_resource type="PackedScene" uid="uid://ctf1b5887oo1i" path="res://components/Effects/PerfectParry.tscn" id="2_lu72f"]
 [ext_resource type="Script" uid="uid://cadoijncfda6r" path="res://scripts/Utils/Managers/CameraManager.gd" id="3_6km7c"]
 
 [node name="World" type="Node2D" unique_id=254359452]
@@ -18,6 +17,3 @@ metadata/_custom_type_script = "uid://cadoijncfda6r"
 
 [node name="animator" type="AnimationPlayer" parent="camera" unique_id=1292991918]
 unique_name_in_owner = true
-
-[node name="effect" parent="." unique_id=685466674 instance=ExtResource("2_lu72f")]
-autoShot = true

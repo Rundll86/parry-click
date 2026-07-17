@@ -13,6 +13,7 @@ process = subprocess.Popen(
     "player/build/windows/parry-click.exe",
     stdout=None if config.allow_stdout else subprocess.DEVNULL,
     stderr=None if config.allow_stdout else subprocess.DEVNULL,
+    stdin=subprocess.DEVNULL,
 )
 pid = process.pid
 
@@ -45,6 +46,7 @@ def click_listener(x, y, btn, pressed):
             ",".join(  # 位置，角度，大小
                 str(item)
                 for item in [
+                    "play",
                     x,
                     y,
                     random.random() * 2 * math.pi,
