@@ -14,7 +14,7 @@ process = subprocess.Popen(
 pid = process.pid
 
 
-@progress(f"特效场景正在启动，PID={pid}，正在获取窗口句柄")
+@progress(f"特效场景已启动，PID={pid}，正在初始化")
 @retry(config.hwnd_max_retry)
 def make_through():
     time.sleep(0.5)
@@ -26,12 +26,11 @@ def make_through():
         raise
 
 
-@progress("正在连接场景API")
+@progress("正在连接播放器API")
 @retry(5)
 def ping():
     backend.send("ping")
     for message in backend.wait_message(timeout=1):
-        print("message")
         if message == "pong":
             break
 
