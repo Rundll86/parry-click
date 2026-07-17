@@ -35,9 +35,6 @@ func timeScale(value: float, millseconds: float):
 	Engine.time_scale *= value
 	await TimeUtil.millseconds(millseconds)
 	Engine.time_scale /= value
-func extremePlayer(millseconds: float):
-	await TimeUtil.millseconds(millseconds)
-	CameraManager.extremeStop()
 func shot():
 	show()
 	particles.emitting = true

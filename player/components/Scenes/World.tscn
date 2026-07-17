@@ -12,6 +12,8 @@ script = ExtResource("2_6km7c")
 metadata/_custom_type_script = "uid://c3o1ydfojauhd"
 
 [node name="camera" type="Camera2D" parent="." unique_id=265007652]
+anchor_mode = 0
+process_callback = 0
 script = ExtResource("3_6km7c")
 metadata/_custom_type_script = "uid://cadoijncfda6r"
 
