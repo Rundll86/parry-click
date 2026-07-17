@@ -10,7 +10,8 @@ class NetworkBackend:
     def send(self, message: str) -> None:
         self.socket.sendto(message.encode("utf8"), ("127.0.0.1", config.port))
 
-    def wait_message(self):
+    def wait_message(self, timeout: float = 60):
+        self.socket.settimeout(timeout)
         while True:
             try:
                 yield self.socket.recv(1024).decode("utf8")

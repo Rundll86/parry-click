@@ -2,7 +2,7 @@ import subprocess
 import time
 from engine.window import find_windows_by_pid, make_click_through
 from engine.network import NetworkBackend
-from engine.progress import progress
+from engine.progress import progress, retry
 from engine.config import config
 
 backend = NetworkBackend()
@@ -29,9 +29,11 @@ def make_through():
 
 
 @progress("正在连接场景API")
+@retry(5)
 def ping():
     backend.send("ping")
-    for message in backend.wait_message():
+    for message in backend.wait_message(timeout=1):
+        print("message")
         if message == "pong":
             break
 
