@@ -2,11 +2,14 @@ import subprocess
 import time
 import random
 import math
+import os
 from engine.window import find, click_through
 from engine.network import NetworkBackend
 from engine.progress import progress, retry
 from engine.config import config
 from engine import mouse
+
+os.environ["WORKDIR"] = os.getcwd()
 
 backend = NetworkBackend()
 process = subprocess.Popen(

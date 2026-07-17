@@ -10,6 +10,7 @@ static var runnedTime: float = 0.0
 func _ready():
 	rootNode = self
 	sceneTree = get_tree()
+	print("工作目录：", ConfigUtil.currentWorkDir)
 func _physics_process(delta):
 	runnedTime += delta
 

@@ -2,10 +2,15 @@ class_name ConfigUtil
 
 static var json = JSON.new()
 
-static var serverPort: int = 0
+static var serverPort: int = 25565
+static var currentWorkDir: String = ""
 
 static func loadConfig():
-	var file = FileAccess.open(OS.get_executable_path().get_base_dir().path_join("../../../parry-click.json"), FileAccess.ModeFlags.READ)
+	if OS.has_feature("editor"):
+		currentWorkDir = "../../.."
+	else:
+		currentWorkDir = OS.get_environment("WORKDIR")
+	var file = FileAccess.open(currentWorkDir.path_join("parry-click.json"), FileAccess.ModeFlags.READ)
 	if file is FileAccess:
 		var parsed = json.parse(file.get_as_text())
 		if parsed == OK:
