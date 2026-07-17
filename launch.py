@@ -5,10 +5,11 @@ from engine.network import NetworkBackend
 from engine.progress import progress
 from engine.config import config
 
+backend = NetworkBackend()
 process = subprocess.Popen(
     "player/build/windows/parry-click.exe",
-    stdout=subprocess.DEVNULL,
-    stderr=subprocess.DEVNULL,
+    stdout=None if config.allow_stdout else subprocess.DEVNULL,
+    stderr=None if config.allow_stdout else subprocess.DEVNULL,
 )
 pid = process.pid
 
@@ -25,9 +26,6 @@ def make_through():
     else:
         print("窗口启动失败。")
         process.wait()
-
-
-backend = NetworkBackend()
 
 
 @progress("正在连接场景API")

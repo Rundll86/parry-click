@@ -12,4 +12,7 @@ class NetworkBackend:
 
     def wait_message(self):
         while True:
-            yield self.socket.recv(1024).decode("utf8")
+            try:
+                yield self.socket.recv(1024).decode("utf8")
+            except ConnectionResetError:
+                continue
