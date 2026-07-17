@@ -1,6 +1,6 @@
 import subprocess
 import time
-from engine.window import find_windows_by_pid, make_click_through
+from engine.window import find, click_through
 from engine.network import NetworkBackend
 from engine.progress import progress, retry
 from engine.config import config
@@ -15,17 +15,15 @@ pid = process.pid
 
 
 @progress(f"特效场景正在启动，PID={pid}，正在获取窗口句柄")
+@retry(config.hwnd_max_retry)
 def make_through():
-    for _ in range(config.hwnd_max_retry):
-        time.sleep(0.5)
-        hwnds = find_windows_by_pid(pid)
-        if hwnds:
-            for hwnd in hwnds:
-                make_click_through(hwnd)
-            break
+    time.sleep(0.5)
+    hwnds = find(pid)
+    if len(hwnds) > 0:
+        for hwnd in hwnds:
+            click_through(hwnd)
     else:
-        print("窗口启动失败。")
-        process.wait()
+        raise
 
 
 @progress("正在连接场景API")

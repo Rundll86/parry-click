@@ -3,10 +3,10 @@ import win32con
 import win32process
 
 
-def find_windows_by_pid(pid):
-    result = []
+def find(pid: int):
+    result: list[int] = []
 
-    def callback(hwnd, extra):
+    def callback(hwnd: int, extra):
         if win32gui.IsWindowVisible(hwnd):
             _, found_pid = win32process.GetWindowThreadProcessId(hwnd)
             if found_pid == pid:
@@ -16,7 +16,7 @@ def find_windows_by_pid(pid):
     return result
 
 
-def make_click_through(hwnd):
+def click_through(hwnd: int):
     ex_style = win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE)
     new_style = ex_style | 0x00080000 | 0x00000020
     win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, new_style)
