@@ -11,9 +11,19 @@ func _process(_delta: float) -> void:
 	while peer.get_available_packet_count() > 0:
 		var msg = peer.get_packet().get_string_from_utf8()
 		message.emit(msg)
-		match msg:
+		print("收到消息", msg)
+		var parts = msg.split(",")
+		var command = parts[0]
+		var args: Array = parts.slice(1)
+		for i in len(args):
+			var value = args[i]
+			if value.is_valid_float():
+				args[i] = value.to_float()
+		match command:
 			"ping":
 				responseWith("pong")
+			"play":
+				EffectPlayer.play("PerfectParry", Vector2(args[0], args[1]), args[2], args[3])
 
 func responseWith(data: String):
 	peer.set_dest_address(peer.get_packet_ip(), peer.get_packet_port())

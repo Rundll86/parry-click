@@ -1,9 +1,12 @@
 import subprocess
 import time
+import random
+import math
 from engine.window import find, click_through
 from engine.network import NetworkBackend
 from engine.progress import progress, retry
 from engine.config import config
+from engine import mouse
 
 backend = NetworkBackend()
 process = subprocess.Popen(
@@ -33,6 +36,22 @@ def ping():
     for message in backend.wait_message(timeout=1):
         if message == "pong":
             break
+
+
+@mouse.on_click
+def click_listener(x, y, btn, pressed):
+    if pressed:
+        backend.send(
+            ",".join(  # 位置，角度，大小
+                str(item)
+                for item in [
+                    x,
+                    y,
+                    random.random() * 2 * math.pi,
+                    random.uniform(0.8, 1.2),
+                ]
+            )
+        )
 
 
 try:
