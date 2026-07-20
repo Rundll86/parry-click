@@ -1,5 +1,7 @@
 from pydantic import BaseModel
 import os
+import __main__
+from pathlib import Path
 
 FILE_NAME = "parry-click.json"
 
@@ -21,3 +23,7 @@ if not os.path.exists(FILE_NAME):
         )
 with open(FILE_NAME, encoding="utf8") as f:
     config = ConfigModel.model_validate_json(f.read())
+
+
+def use_path(path: str):
+    return Path(__main__.__file__) / ".." / path

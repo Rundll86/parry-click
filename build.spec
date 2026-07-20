@@ -5,7 +5,7 @@ a = Analysis(
     ["launch.py"],
     pathex=[],
     binaries=[],
-    datas=[("player/build/windows/parry-click.exe", ".")],
+    datas=[("player/build/windows/parry-click.exe", "player/build/windows")],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -35,4 +35,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    icon="favicon.ico",
 )

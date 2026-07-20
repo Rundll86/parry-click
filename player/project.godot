@@ -13,7 +13,6 @@ config_version=5
 config/name="Parry-Click"
 run/main_scene="uid://6p34b164gtsb"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="res://icon.svg"
 
 [display]
 

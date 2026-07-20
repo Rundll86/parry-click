@@ -6,14 +6,14 @@ import os
 from engine.window import find, click_through
 from engine.network import NetworkBackend
 from engine.progress import progress, retry
-from engine.config import config
+from engine.config import config, use_path
 from engine import mouse
 
 os.environ["WORKDIR"] = os.getcwd()
 
 backend = NetworkBackend()
 process = subprocess.Popen(
-    "player/build/windows/parry-click.exe",
+    use_path("player/build/windows/parry-click.exe"),
     stdout=None if config.allow_stdout else subprocess.DEVNULL,
     stderr=None if config.allow_stdout else subprocess.DEVNULL,
     stdin=subprocess.DEVNULL,

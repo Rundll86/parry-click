@@ -6,10 +6,7 @@ static var serverPort: int = 25565
 static var currentWorkDir: String = ""
 
 static func loadConfig():
-	if OS.has_feature("editor"):
-		currentWorkDir = "../../.."
-	else:
-		currentWorkDir = OS.get_environment("WORKDIR")
+	currentWorkDir = OS.get_environment("WORKDIR")
 	var file = FileAccess.open(currentWorkDir.path_join("parry-click.json"), FileAccess.ModeFlags.READ)
 	if file is FileAccess:
 		var parsed = json.parse(file.get_as_text())
